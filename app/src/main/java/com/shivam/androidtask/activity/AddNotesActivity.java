@@ -1,34 +1,26 @@
 package com.shivam.androidtask.activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
-import android.webkit.PermissionRequest;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -40,21 +32,22 @@ import com.shivam.androidtask.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AddNotesActivity extends AppCompatActivity {
 
     private static final String IMAGE_DIRECTORY = "/YourDirectName";
     private Context mContext;
-    private CircleImageView circleImageView;  // imageview
+    private ImageView ivImage;  // imageview
     private int GALLERY = 1, CAMERA = 2;
+    int noteId;
+    LinearLayout llAddImage;
+    RecyclerView rvImageList;
+    EditText etTitle, etDescription;
+    Button btnSaveMote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,13 +56,42 @@ public class AddNotesActivity extends AppCompatActivity {
 
         requestMultiplePermissions(); // check permission
 
-        circleImageView = findViewById(R.id.profile_image);
-        circleImageView.setOnClickListener(new View.OnClickListener() {
+        llAddImage = findViewById(R.id.ll_add_image);
+        ivImage = findViewById(R.id.profile_image);
+        rvImageList = findViewById(R.id.rv_image_list);
+        llAddImage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showPictureDialog();
             }
         });
+
+
+        btnSaveMote = findViewById(R.id.btn_save_note);
+        etTitle = findViewById(R.id.etTitle);
+        etDescription = findViewById(R.id.etDescription);
+
+        btnSaveMote.setOnClickListener(view -> {
+
+            String title = etTitle.getText().toString();
+            String description = etDescription.getText().toString();
+            Intent intent = new Intent(AddNotesActivity.this, HomeActivity.class);
+            intent.putExtra("title", title);
+            intent.putExtra("description", description);
+//            intent.putExtra("image", bs.toByteArray());
+            startActivity(intent);
+        });
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//
+//        Intent intent = new Intent(AddNotesActivity.this, HomeActivity.class);
+//        intent.putExtra("title", etTitle.getText().toString());
+//        intent.putExtra("description", etDescription.getText().toString());
+////        intent.putExtra("image", image);
+//    }
+
 
     private void showPictureDialog() {
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
@@ -81,7 +103,7 @@ public class AddNotesActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
-                                choosePhotoFromGallary();
+                                choosePhotoFromGallery();
                                 break;
                             case 1:
                                 takePhotoFromCamera();
@@ -92,7 +114,7 @@ public class AddNotesActivity extends AppCompatActivity {
         pictureDialog.show();
     }
 
-    public void choosePhotoFromGallary() {
+    public void choosePhotoFromGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, GALLERY);
     }
@@ -104,19 +126,31 @@ public class AddNotesActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == this.RESULT_CANCELED) {
             return;
         }
         if (requestCode == GALLERY) {
-            if (data != null)  {
+            if (data != null) {
                 Uri contentURI = data.getData();
                 try {
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
                     String path = saveImage(bitmap);
                     Toast.makeText(getApplicationContext(), "Image Saved!", Toast.LENGTH_SHORT).show();
-                    circleImageView.setImageBitmap(bitmap);
+                    ivImage.setImageBitmap(bitmap);
+
+                    btnSaveMote.setOnClickListener(view -> {
+
+                        Intent intent = new Intent(AddNotesActivity.this, HomeActivity.class);
+                        intent.putExtra("title", etTitle.getText().toString());
+                        intent.putExtra("description", etDescription.getText().toString());
+
+                        ByteArrayOutputStream bs = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 50, bs);
+
+                        intent.putExtra("image", bs.toByteArray());
+                        startActivity(intent);
+                    });
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -126,9 +160,8 @@ public class AddNotesActivity extends AppCompatActivity {
 
         } else if (requestCode == CAMERA) {
             Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-            circleImageView.setImageBitmap(thumbnail);
+            ivImage.setImageBitmap(thumbnail);
             saveImage(thumbnail);
-            Toast.makeText(getApplicationContext(), "Image Saved!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -169,9 +202,9 @@ public class AddNotesActivity extends AppCompatActivity {
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
-                        if (report.areAllPermissionsGranted()) {  // check if all permissions are granted
-                            Toast.makeText(getApplicationContext(), "All permissions are granted by user!", Toast.LENGTH_SHORT).show();
-                        }
+//                        if (report.areAllPermissionsGranted()) {  // check if all permissions are granted
+//                            Toast.makeText(getApplicationContext(), "All permissions are granted by user!", Toast.LENGTH_SHORT).show();
+//                        }
 
                         if (report.isAnyPermissionPermanentlyDenied()) { // check for permanent denial of any permission
                             // show alert dialog navigating to Settings
@@ -193,4 +226,18 @@ public class AddNotesActivity extends AppCompatActivity {
                 .onSameThread()
                 .check();
     }
+
+//    public void sendNoteToHome(){
+//        btnSaveMote.setOnClickListener(view -> {
+//
+//            String title = etTitle.getText().toString();
+//            String description = etDescription.getText().toString();
+//            Intent intent = new Intent(AddNotesActivity.this, HomeActivity.class);
+//
+//            intent.putExtra("title", title);
+//            intent.putExtra("description", description);
+////            intent.putExtra("image", bs.toByteArray());
+//            startActivity(intent);
+//        });
+//    }
 }

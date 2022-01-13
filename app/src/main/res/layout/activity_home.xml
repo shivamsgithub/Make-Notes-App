@@ -6,39 +6,40 @@
     android:layout_height="match_parent"
     tools:context=".activity.HomeActivity">
 
-    <TextView
-        android:id="@+id/tv_notes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Notes"
-        android:textStyle="bold"
-        android:paddingHorizontal="10dp"
-        android:textSize="24sp"
-        android:layout_margin="10dp"
-        android:textColor="@color/black"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_notes"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tv_notes_count"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp" />
+
+    <TextView
+        android:id="@+id/tv_notes_count"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_below="@id/tv_notes"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_above="@id/btn_add_note"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="3dp"
+        android:text="0"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btn_add_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=" + Add Note"
-        android:textColor="@color/black"
-        android:textAllCaps="false"
-        android:background="@drawable/bg_9dp"
-        android:backgroundTint="@color/purple_200"
-        android:paddingVertical="10dp"
-        android:gravity="center_horizontal"
         android:layout_alignParentBottom="true"
-        android:textSize="18sp"
         android:layout_marginHorizontal="10sp"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_9dp"
+        android:backgroundTint="#673AB7"
+        android:gravity="center_horizontal"
+        android:paddingVertical="10dp"
+        android:text=" + Add Note"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
 
 </RelativeLayout>

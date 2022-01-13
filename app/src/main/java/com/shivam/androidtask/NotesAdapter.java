@@ -1,5 +1,6 @@
 package com.shivam.androidtask;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,16 +10,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.shivam.androidtask.activity.NotesDetailsActivity;
+import com.shivam.androidtask.activity.AddNotesActivity;
+import com.shivam.androidtask.activity.MyDBHandler;
+import com.shivam.androidtask.activity.Notes;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.notesVH>{
 
-    private List<NotesModel> list = new ArrayList<>();
+    private List<Notes> list;
+    private Context context;
+
+    public NotesAdapter(List<Notes> list, Context context) {
+        this.list = list;
+        this.context = context;
+    }
 
     @NonNull
     @Override
@@ -38,8 +44,22 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.notesVH>{
 //
 //        });
 
-        holder.setData(list.get(position).getUrl(), list.get(position).getName(), list.get(position).getTopic());
+        MyDBHandler db = new MyDBHandler(context);
+        List<Notes> allNotes = db.getAllNotes();
 
+        holder.tvTitle.setText(list.get(position).getTitle());
+        holder.tvDescription.setText(list.get(position).getDescription());
+         ImagesAdapter imagesAdapter = new ImagesAdapter();
+         holder.rvImagesList.setAdapter(imagesAdapter);
+//         imagesAdapter.addData(allNotes);
+
+
+
+        holder.itemView.setOnClickListener(view -> {
+            Intent intentOne = new Intent(holder.itemView.getContext(), AddNotesActivity.class);
+            intentOne.putExtra("id", list.get(position).getId());
+            holder.itemView.getContext().startActivity(intentOne);
+        });
     }
 
     @Override
@@ -47,28 +67,27 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.notesVH>{
         return list.size();
     }
 
+    public void addData(List<Notes> items) {
+        list.addAll(items);
+        notifyDataSetChanged();
+    }
+
+    public void clearData() {
+        list.clear();
+        notifyDataSetChanged();
+    }
+
     public class notesVH extends RecyclerView.ViewHolder {
 
-        TextView tvHeading ;
-        CircleImageView ivIcon;
+        TextView tvTitle, tvDescription ;
+        RecyclerView rvImagesList;
 
         public notesVH(@NonNull View itemView) {
             super(itemView);
 
-            tvHeading = itemView.findViewById(R.id.tv_category_heading);
-            ivIcon = itemView.findViewById(R.id.iv_category_icon);
-        }
-
-        private void setData(String url,final String title, String topic){
-
-            this.tvHeading.setText(title);
-
-            itemView.setOnClickListener(view -> {
-                Intent intentOne = new Intent(itemView.getContext(), NotesDetailsActivity.class);
-                intentOne.putExtra("title", title);
-                intentOne.putExtra("topic", topic);
-                itemView.getContext().startActivity(intentOne);
-            });
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvDescription = itemView.findViewById(R.id.tv_description);
+            rvImagesList = itemView.findViewById(R.id.rv_images_in_notes);
         }
     }
 }
