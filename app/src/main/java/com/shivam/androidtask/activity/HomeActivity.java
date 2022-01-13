@@ -46,7 +46,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
         List<Notes> allNotes = db.getAllNotes();
-        Collections.reverse(allNotes);
+//        Collections.reverse(allNotes);
 //        for (Notes notes : allNotes) {
 //
             Notes newNote = new Notes();
@@ -56,7 +56,10 @@ public class HomeActivity extends AppCompatActivity {
             db.addNotes(newNote);
 
 //            Log.d("dbShivam", title);
-            list.add(newNote);
+            allNotes.add(newNote);
+            Collections.reverse(allNotes);
+//            int count =  1 + allNotes.size();
+//            String totalCount = String.valueOf(count);
             tvNotesCount.setText("Total : " + allNotes.size());
 ////        }
 
@@ -68,6 +71,14 @@ public class HomeActivity extends AppCompatActivity {
             // Going from MainActivity to NotesEditorActivity
             Intent intent1 = new Intent(getApplicationContext(), AddNotesActivity.class);
             startActivity(intent1);
+            finish();
         });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
     }
 }

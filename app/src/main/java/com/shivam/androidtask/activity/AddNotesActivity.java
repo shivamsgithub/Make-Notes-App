@@ -12,11 +12,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,6 +51,7 @@ public class AddNotesActivity extends AppCompatActivity {
     RecyclerView rvImageList;
     EditText etTitle, etDescription;
     Button btnSaveMote;
+    ViewGroup viewGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,18 +83,56 @@ public class AddNotesActivity extends AppCompatActivity {
             intent.putExtra("description", description);
 //            intent.putExtra("image", bs.toByteArray());
             startActivity(intent);
+            finish();
         });
+
+
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddNotesActivity.this);
+//        builder.setTitle("Save Or Not");
+        builder.setMessage("Do you want to save this? ");
+//        View dialogView = LayoutInflater.from(AddNotesActivity.this)
+//                .inflate(R.layout.delete_dialog, viewGroup, false);
+
+//        TextView tvSave = dialogView.findViewById(R.id.tv_save);
+//        TextView tvBack = dialogView.findViewById(R.id.tv_back);
+
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent = new Intent(AddNotesActivity.this, HomeActivity.class);
+                intent.putExtra("title", etTitle.getText().toString());
+                intent.putExtra("description", etDescription.getText().toString());
+//        intent.putExtra("image", image);
+                startActivity(intent);
+                AddNotesActivity.super.onBackPressed();
+            }
+        });
+
+        builder.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Intent intent1 = new Intent(AddNotesActivity.this, HomeActivity.class);
+                startActivity(intent1);
+                AddNotesActivity.super.onBackPressed();
+            }
+        });
+
+//        builder.setView(dialogView);
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.show();
+        builder.show();
+
+//        tvSave.setOnClickListener(view -> {
 //
-//        Intent intent = new Intent(AddNotesActivity.this, HomeActivity.class);
-//        intent.putExtra("title", etTitle.getText().toString());
-//        intent.putExtra("description", etDescription.getText().toString());
-////        intent.putExtra("image", image);
-//    }
+//        });
+//
+//        tvBack.setOnClickListener(view -> {
+//
+//        });
+    }
 
 
     private void showPictureDialog() {
