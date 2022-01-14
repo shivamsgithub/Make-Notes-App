@@ -2,10 +2,12 @@ package com.shivam.androidtask.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +30,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_home);
+        toolbar.setTitle("Notes");
 
         rvAllNotes = findViewById(R.id.rv_notes);
         btnAddNote = findViewById(R.id.btn_add_note);

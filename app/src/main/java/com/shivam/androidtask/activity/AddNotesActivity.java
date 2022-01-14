@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.karumi.dexter.Dexter;
@@ -86,7 +87,14 @@ public class AddNotesActivity extends AppCompatActivity {
             finish();
         });
 
-
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios_24); // your drawable
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override
@@ -268,18 +276,4 @@ public class AddNotesActivity extends AppCompatActivity {
                 .onSameThread()
                 .check();
     }
-
-//    public void sendNoteToHome(){
-//        btnSaveMote.setOnClickListener(view -> {
-//
-//            String title = etTitle.getText().toString();
-//            String description = etDescription.getText().toString();
-//            Intent intent = new Intent(AddNotesActivity.this, HomeActivity.class);
-//
-//            intent.putExtra("title", title);
-//            intent.putExtra("description", description);
-////            intent.putExtra("image", bs.toByteArray());
-//            startActivity(intent);
-//        });
-//    }
 }

@@ -6,14 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activity.HomeActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_home"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#CDDC39"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_notes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/tv_notes_count"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp" />
+        android:layout_below="@id/toolbar_home"
+        android:layout_above="@id/tv_notes_count"/>
 
     <TextView
         android:id="@+id/tv_notes_count"
@@ -22,6 +26,7 @@
         android:layout_above="@id/btn_add_note"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="3dp"
+        android:visibility="gone"
         android:text="0"
         android:textSize="14sp"
         android:textStyle="bold" />
@@ -32,9 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="10sp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginVertical="10dp"
         android:background="@drawable/bg_9dp"
-        android:backgroundTint="#673AB7"
+        android:backgroundTint="@color/myGreen"
         android:gravity="center_horizontal"
         android:paddingVertical="10dp"
         android:text=" + Add Note"
