@@ -1,15 +1,19 @@
 package com.shivam.androidtask;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shivam.androidtask.activity.AddNotesActivity;
 import com.shivam.androidtask.activity.MyDBHandler;
 import com.shivam.androidtask.activity.Notes;
 
@@ -34,59 +38,107 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.notesVH> {
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.notesVH holder, int position) {
 
-
-//        holder.itemView.setOnClickListener(v -> {
-//                Intent intent = new Intent(context, QuizResultActivity.class);
-//                intent.putExtra("testID", data.getId());
-//                intent.putExtra("title", data.getTopics());
-//                context.startActivity(intent);
-//
-//        });
-
         MyDBHandler db = new MyDBHandler(context);
-        List<Notes> allNotes = db.getAllNotes();
 
-        holder.tvTitle.setText(list.get(position).getTitle());
-        holder.tvDescription.setText(list.get(position).getDescription());
-        ImagesAdapter imagesAdapter = new ImagesAdapter();
-        holder.rvImagesList.setAdapter(imagesAdapter);
+        if (!((list.get(position).getTitle()).isEmpty())) {
+            holder.tvTitle.setText(list.get(position).getTitle());
+        }
+
+//        if (!((list.get(position).getDescription()).isEmpty())){
+//            holder.tvDescription.setVisibility(View.VISIBLE);
+//            holder.tvDescription.setText(list.get(position).getDescription());
+//        }else {
+//            holder.tvDescription.setVisibility(View.GONE);
+//        }
+        holder.tvTimeStamp.setText(list.get(position).getTimeStamp());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intentEdit = new Intent(context, AddNotesActivity.class);
+            intentEdit.putExtra("edit", true);
+            intentEdit.putExtra("id", list.get(position).getId());
+            intentEdit.putExtra("title", list.get(position).getTitle());
+//            intentEdit.putExtra("description", list.get(position).getDescription());
+            intentEdit.putExtra("timeStamp", list.get(position).getTimeStamp());
+            context.startActivity(intentEdit);
+        });
+
+
+//        ImagesAdapter imagesAdapter = new ImagesAdapter();
+//        holder.rvImagesList.setAdapter(imagesAdapter);
+
 //         imagesAdapter.addData(allNotes);
 
-
-//        holder.itemView.setOnClickListener(view -> {
-//            Intent intentOne = new Intent(holder.itemView.getContext(), AddNotesActivity.class);
-//            intentOne.putExtra("id", list.get(position).getId());
-//            holder.itemView.getContext().startActivity(intentOne);
-//        });
-
-        holder.itemView.setOnClickListener(view -> {
+        holder.ivMore.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             View dialogView = LayoutInflater.from(view.getContext())
-                    .inflate(R.layout.delete_dialog, holder.viewGroup, false);
+                    .inflate(R.layout.all_options_dialog, holder.viewGroup, false);
 
             holder.tvDelete = dialogView.findViewById(R.id.tv_delete);
             holder.tvCancel = dialogView.findViewById(R.id.tv_cancel);
+            holder.tvShare = dialogView.findViewById(R.id.tv_share);
+            holder.tvEdit = dialogView.findViewById(R.id.tv_edit);
 
             builder.setView(dialogView);
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
 
-            holder.tvDelete.setOnClickListener(view1 -> {
+            holder.tvEdit.setOnClickListener(view1 -> {
+                Intent intentEdit = new Intent(context, AddNotesActivity.class);
+                intentEdit.putExtra("edit", true);
+                intentEdit.putExtra("id", list.get(position).getId());
+                intentEdit.putExtra("title", list.get(position).getTitle());
+//                intentEdit.putExtra("description", list.get(position).getDescription());
+                intentEdit.putExtra("timeStamp", list.get(position).getTimeStamp());
+                context.startActivity(intentEdit);
+            });
 
-                db.deleteNotesById(list.get(holder.getAdapterPosition()).getId());
+            holder.tvShare.setOnClickListener(v-> {
+                Intent shareIntent =  new Intent(android.content.Intent.ACTION_SEND);
+//set type
+                shareIntent.setType("text/plain");
+//add what a subject you want
+                shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"add what a subject you want");
+//message
+                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "" + list.get(position).getTitle() + "\n" +  list.get(position).getDescription() + "");
+//start sharing via
+                context.startActivity(Intent.createChooser(shareIntent,"Share via"));
+            });
 
-                // These two lines added for remove data from adapter also.
-                list.remove(holder.getAdapterPosition());
-                notifyDataSetChanged();
+            holder.tvDelete.setOnClickListener(view2 -> {
                 alertDialog.dismiss();
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                View dialogView1 = LayoutInflater.from(view.getContext())
+                        .inflate(R.layout.delete_dialog, holder.viewGroup, false);
+
+                builder1.setView(dialogView1);
+                AlertDialog alertDialog1 = builder1.create();
+                alertDialog1.show();
+
+                holder.tvDelete1 = dialogView1.findViewById(R.id.tv_delete_del);
+                holder.tvCancel1 = dialogView1.findViewById(R.id.tv_cancel_del);
+
+
+                holder.tvDelete1.setOnClickListener(v1 ->{
+                    db.deleteNotesById(list.get(holder.getAdapterPosition()).getId());
+
+                    // These two lines added for remove data from adapter also.
+                    list.remove(holder.getAdapterPosition());
+                    notifyDataSetChanged();
+                    alertDialog1.dismiss();
 
 //                list.remove(list.get(position).getId());
 //                db.deleteNotesById(list.get(position).getId());
 ////                notifyDataSetChanged();
 //                alertDialog.dismiss();
+                });
+
+                holder.tvCancel1.setOnClickListener(view3 -> {
+                    alertDialog.dismiss();
+                });
+
             });
 
-            holder.tvCancel.findViewById(R.id.tv_cancel).setOnClickListener(view1 -> {
+            holder.tvCancel.findViewById(R.id.tv_cancel).setOnClickListener(view4 -> {
                 alertDialog.dismiss();
             });
         });
@@ -110,18 +162,21 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.notesVH> {
 
     public class notesVH extends RecyclerView.ViewHolder {
 
-        TextView tvTitle, tvDescription;
+        TextView tvTitle, tvDescription, tvTimeStamp;
         RecyclerView rvImagesList;
         ViewGroup viewGroup;
-        TextView tvDelete, tvCancel;
+        TextView tvDelete, tvCancel, tvShare, tvEdit, tvDelete1, tvCancel1;
+        ImageView ivMore;
 
         public notesVH(@NonNull View itemView) {
             super(itemView);
 
             tvTitle = itemView.findViewById(R.id.tv_title);
-            tvDescription = itemView.findViewById(R.id.tv_description);
-            rvImagesList = itemView.findViewById(R.id.rv_images_in_notes);
+//            tvDescription = itemView.findViewById(R.id.tv_description);
+//            rvImagesList = itemView.findViewById(R.id.rv_images_in_notes);
             viewGroup = itemView.findViewById(android.R.id.content);
+            ivMore = itemView.findViewById(R.id.iv_more);
+            tvTimeStamp = itemView.findViewById(R.id.tv_timeStamp);
         }
     }
 }

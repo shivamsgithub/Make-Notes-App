@@ -4,20 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".activity.HomeActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_home"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#CDDC39"/>
+        app:titleTextColor="@color/white"
+        android:background="@color/black"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_notes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar_home"
-        android:layout_above="@id/tv_notes_count"/>
+        android:layout_above="@id/tv_notes_count"
+        android:layout_below="@id/toolbar_home" />
+
+    <TextView
+        android:id="@+id/notes_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="3dp"
+        android:text="Add Notes"
+        android:textSize="36sp" />
 
     <TextView
         android:id="@+id/tv_notes_count"
@@ -26,10 +37,10 @@
         android:layout_above="@id/btn_add_note"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="3dp"
-        android:visibility="gone"
         android:text="0"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btn_add_note"
@@ -39,12 +50,12 @@
         android:layout_marginHorizontal="10sp"
         android:layout_marginVertical="10dp"
         android:background="@drawable/bg_9dp"
-        android:backgroundTint="@color/myGreen"
+        android:backgroundTint="@color/black"
         android:gravity="center_horizontal"
         android:paddingVertical="10dp"
         android:text=" + Add Note"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp" />
 
 </RelativeLayout>

@@ -3,18 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/drawable/all_options_dialog.xml" value="0.22407407407407406" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/drawable/bg_9dp.xml" value="0.2518518518518518" />
+        <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/drawable/circle_white__bg.xml" value="0.21666666666666667" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/drawable/edit_text_bg.xml" value="0.2518518518518518" />
+        <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.23333333333333334" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/layout/activity_add_notes.xml" value="0.2" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/layout/activity_home.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/layout/activity_main.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/layout/activity_main2.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/layout/activity_notes_details.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/layout/activity_sign_up.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/layout/all_options_dialog.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/layout/back_save_dialog.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/layout/delete_dialog.xml" value="0.2" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/layout/list_item_imageview_60dp.xml" value="0.2526041666666667" />
-        <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/layout/list_item_notes.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/layout/list_item_notes.xml" value="0.264" />
         <entry key="..\:/Users/shiva/AndroidStudioProjects/Androidtask/app/src/main/res/menu/add_note_menu.xml" value="0.2526041666666667" />
       </map>
     </option>

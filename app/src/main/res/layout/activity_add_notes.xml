@@ -11,51 +11,111 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#CDDC39"/>
-
-    <EditText
-        android:id="@+id/etTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="top|left"
-        android:hint="Title"
-        android:layout_below="@id/toolbar"
-        android:inputType="textMultiLine"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/etDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="top|left"
-        android:hint="Description"
-        android:inputType="textMultiLine"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:layout_below="@id/etTitle"/>
+        android:background="@color/black"
+        app:titleTextColor="@color/white" />
 
     <LinearLayout
-        android:id="@+id/ll_add_image"
-        android:layout_width="wrap_content"
+        android:id="@+id/ll_undo_redo_other"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/etDescription"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical">
+        android:layout_below="@id/toolbar"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:background="@color/white">
 
         <ImageView
+            android:id="@+id/iv_undo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_baseline_undo_24" />
+
+        <ImageView
+            android:id="@+id/iv_redo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_baseline_redo_24" />
+
+        <ImageView
+            android:id="@+id/iv_voice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_baseline_photo_camera_24" />
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_baseline_mic_24"
+            android:visibility="gone" />
 
-        <TextView
+    </LinearLayout>
+
+    <jp.wasabeef.richeditor.RichEditor
+        android:id="@+id/editor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_save_note"
+        android:layout_below="@id/ll_undo_redo_other" />
+
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_below="@id/ll_undo_redo_other"
+        android:weightSum="6">
+
+        <EditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="top|left"
+            android:hint="Title"
+            android:layout_below="@id/toolbar"
+            android:layout_weight="5"
+            android:inputType="textMultiLine"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/iv_voice_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Images"
-            android:textSize="16sp" />
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_baseline_mic_24" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_below="@id/ll_title"
+        android:weightSum="6">
+
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="top|left"
+            android:hint="Description"
+            android:inputType="textMultiLine"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_weight="5"/>
+
+        <ImageView
+            android:id="@+id/iv_voice_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_baseline_mic_24" />
 
     </LinearLayout>
 
@@ -63,8 +123,9 @@
         android:id="@+id/rv_image_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll_add_image"
+        android:layout_below="@id/ll_description"
         android:layout_marginStart="10dp"
+        android:visibility="gone"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
@@ -81,11 +142,11 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/bg_9dp"
-        android:backgroundTint="@color/myGreen"
+        android:backgroundTint="@color/black"
         android:padding="10dp"
         android:text="Save"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp" />
 
     <ImageView
@@ -93,7 +154,8 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:background="@color/white"
-        android:layout_below="@id/ll_add_image"
+        android:layout_below="@id/rv_image_list"
+        android:visibility="gone"
         android:layout_margin="10dp"/>
 
 </RelativeLayout>

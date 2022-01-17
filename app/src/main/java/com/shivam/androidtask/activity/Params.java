@@ -9,7 +9,8 @@ public class Params {
     // Keys of our table in db
     public static final String KEY_ID = "id";
     public static final String KEY_TITLE = "title";
-    public static final String KEY_DESCRIPTION = "description";
+//    public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGES = "images";
+    public static final String KEY_TIMESTAMP = "timeStamp";
 
 }

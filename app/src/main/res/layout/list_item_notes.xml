@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="108dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginHorizontal="10dp"
     android:layout_marginTop="10dp"
-    app:cardElevation="5dp"
-    app:cardCornerRadius="9dp"
     android:background="@drawable/bg_9dp"
-    android:backgroundTint="#E12698F3"
-    android:orientation="vertical">
+    android:backgroundTint="@color/myYellow">
+<!--    #E12698F3-->
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -22,30 +18,63 @@
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
-            android:textSize="24sp"
+            android:text=""
+            android:textSize="20sp"
             android:textColor="@color/black"
+            android:layout_toStartOf="@id/iv_more"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"/>
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="10dp"/>
+
+        <ImageView
+            android:id="@+id/iv_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_baseline_more_vert_24" />
 
         <TextView
             android:id="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_marginStart="10dp"
+            android:visibility="gone"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
             android:text="Description"
-            android:textSize="24sp"
             android:textColor="@color/black"
-            android:layout_margin="10dp"/>
+            android:textSize="18sp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_images_in_notes"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_timeStamp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/list_item_imageview_60dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_margin="10dp" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="00:00"
+            android:textSize="14sp" />
 
-    </LinearLayout>
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rv_images_in_notes"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            tools:listitem="@layout/list_item_imageview_60dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--            android:layout_margin="10dp"-->
+<!--            android:layout_below="@id/tv_description"/>-->
+
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

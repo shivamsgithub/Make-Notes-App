@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.shivam.androidtask">
 
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE" />
 
@@ -14,16 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidTask">
         <activity
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:name=".activity.AddNotesActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".activity.NotesDetailsActivity"
             android:exported="false" />
         <activity
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:name=".activity.HomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".activity.SignUpActivity"
             android:exported="false" />

@@ -6,21 +6,22 @@ public class Notes {
     private String description;
     private byte[] images;
     private int imagesInt;
+    private String timeStamp;
 
     public Notes() {
     }
 
-    public Notes(int id, String title, String description, byte[] images, int imagesInt) {
+    public Notes(int id, String title, byte[] images, int imagesInt , String timeStamp) {
         this.id = id;
         this.title = title;
-        this.description = description;
         this.images = images;
         this.imagesInt = imagesInt;
+        this.timeStamp = timeStamp;
     }
 
-    public Notes(String title, String description) {
+    public Notes(String title, String timeStamp) {
         this.title = title;
-        this.description = description;
+        this.timeStamp = timeStamp;
     }
 
     public Notes(String title) {
@@ -69,6 +70,14 @@ public class Notes {
 
     public void setImagesInt(int imagesInt) {
         this.imagesInt = imagesInt;
+    }
+
+    public String getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
     }
 }
 

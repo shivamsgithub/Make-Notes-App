@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -24,7 +25,8 @@ public class HomeActivity extends AppCompatActivity {
     Button btnAddNote ;
     RecyclerView rvAllNotes;
     ArrayList<Notes> list = new ArrayList<>() ;
-    TextView tvNotesCount;
+    TextView tvNotesCount, notesMsg;
+    boolean noteDefault = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,43 +44,29 @@ public class HomeActivity extends AppCompatActivity {
         rvNotes.setLayoutManager(linearLayoutManager);
         tvNotesCount = findViewById(R.id.tv_notes_count);
 
-        Intent intent = getIntent();
-        String title = intent.getStringExtra("title");
-        String description = intent.getStringExtra("description");
-        byte[] image = intent.getByteArrayExtra("image");
-
         MyDBHandler db = new MyDBHandler(HomeActivity.this);
-
-
         List<Notes> allNotes = db.getAllNotes();
-//        Collections.reverse(allNotes);
-//        for (Notes notes : allNotes) {
-//
-            Notes newNote = new Notes();
-            newNote.setTitle(title);
-            newNote.setDescription(description);
-            newNote.setImages(image);
-            db.addNotes(newNote);
 
-//            Log.d("dbShivam", title);
-            allNotes.add(newNote);
-            Collections.reverse(allNotes);
-//            int count =  1 + allNotes.size();
-//            String totalCount = String.valueOf(count);
-            tvNotesCount.setText("Total : " + allNotes.size());
-////        }
-
+        Collections.reverse(allNotes);
         adapter = new NotesAdapter(list, HomeActivity.this);
         rvNotes.setAdapter(adapter);
         adapter.addData(allNotes);
 
+        notesMsg = findViewById(R.id.notes_msg);
+        if (allNotes.size() == 0){
+            notesMsg.setVisibility(View.VISIBLE);
+        } else {
+            notesMsg.setVisibility(View.GONE);
+        }
+
+//        tvNotesCount.setText( "Total Notes : " + allNotes.size());
+
         btnAddNote.setOnClickListener(view -> {
             // Going from MainActivity to NotesEditorActivity
-            Intent intent1 = new Intent(getApplicationContext(), AddNotesActivity.class);
+            Intent intent1 = new Intent(HomeActivity.this, AddNotesActivity.class);
             startActivity(intent1);
             finish();
         });
-
     }
 
     @Override
