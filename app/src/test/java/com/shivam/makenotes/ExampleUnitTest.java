@@ -1,4 +1,4 @@
-package com.shivam.androidtask;
+package com.shivam.makenotes;
 
 import org.junit.Test;
 

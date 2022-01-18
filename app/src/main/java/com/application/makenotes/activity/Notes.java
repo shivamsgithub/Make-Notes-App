@@ -1,4 +1,4 @@
-package com.shivam.androidtask.activity;
+package com.application.makenotes.activity;
 
 public class Notes {
     private int id;

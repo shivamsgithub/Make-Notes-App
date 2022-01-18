@@ -1,4 +1,4 @@
-package com.shivam.androidtask;
+package com.application.makenotes;
 
 public class NotesModel {
     private String name;

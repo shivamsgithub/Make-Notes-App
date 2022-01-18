@@ -1,4 +1,4 @@
-package com.shivam.androidtask;
+package com.application.makenotes;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.shivam.androidtask.activity.Notes;
+import com.application.makenotes.activity.Notes;
+import com.application.makenotes.R;
 
 import java.util.List;
 

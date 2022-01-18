@@ -1,4 +1,4 @@
-package com.shivam.androidtask.activity;
+package com.application.makenotes.activity;
 
 import android.content.ContentValues;
 import android.content.Context;

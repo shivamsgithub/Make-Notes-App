@@ -1,6 +1,5 @@
-package com.shivam.androidtask;
+package com.application.makenotes;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,9 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.shivam.androidtask.activity.AddNotesActivity;
-import com.shivam.androidtask.activity.MyDBHandler;
-import com.shivam.androidtask.activity.Notes;
+import com.application.makenotes.activity.AddNotesActivity;
+import com.application.makenotes.activity.MyDBHandler;
+import com.application.makenotes.activity.Notes;
+import com.application.makenotes.R;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.shivam.androidtask">
+    package="com.application.makenotes">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE" />
@@ -13,13 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidTask">
         <activity
-            android:name=".activity.AddNotesActivity"
+            android:name="com.application.makenotes.activity.AddNotesActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.HomeActivity"
+            android:name="com.application.makenotes.activity.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.application.makenotes.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,19 +1,18 @@
-package com.shivam.androidtask.activity;
+package com.application.makenotes.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.shivam.androidtask.NotesAdapter;
-import com.shivam.androidtask.R;
+import com.application.makenotes.NotesAdapter;
+import com.application.makenotes.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         Toolbar toolbar = findViewById(R.id.toolbar_home);
-        toolbar.setTitle("Notes");
+        toolbar.setTitle("Make Notes");
 
         rvAllNotes = findViewById(R.id.rv_notes);
         btnAddNote = findViewById(R.id.btn_add_note);
