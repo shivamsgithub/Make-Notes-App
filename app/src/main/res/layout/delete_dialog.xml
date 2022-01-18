@@ -36,7 +36,8 @@
             android:paddingVertical="5dp"
             android:paddingHorizontal="10dp"
             android:background="@drawable/edit_text_bg"
-            android:textColor="@color/myGreen"
+            android:backgroundTint="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="18sp" />
 
@@ -48,10 +49,11 @@
             android:paddingVertical="5dp"
             android:paddingHorizontal="10dp"
             android:background="@drawable/edit_text_bg"
+            android:backgroundTint="@color/black"
             android:textStyle="bold"
             android:text="Cancel"
             android:textSize="18sp"
-            android:textColor="@color/myGreen"/>
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 

@@ -61,13 +61,13 @@ public class AddNotesActivity extends AppCompatActivity {
         ivRedo = findViewById(R.id.iv_redo);
         mEditor = findViewById(R.id.editor);
 
-        mEditor.setEditorFontSize(18);
+        mEditor.setEditorFontSize(20);
 
         btnSaveNote = findViewById(R.id.btn_save_note);
 //        etTitle = findViewById(R.id.etTitle);
 //        etDescription = findViewById(R.id.etDescription);
 
-        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("dd MMM yyyy")
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("HH:mm:ss  dd MMM yyyy")
                 .format(new java.util.Date());
 
 //        UndoRedoHelper undoRedoHelper = new UndoRedoHelper (etTitle);
@@ -99,13 +99,13 @@ public class AddNotesActivity extends AppCompatActivity {
             Intent intent = new Intent(AddNotesActivity.this, HomeActivity.class);
             MyDBHandler db = new MyDBHandler(AddNotesActivity.this);
             String title = mEditor.getHtml().replaceAll("&nbsp;","");
-            String titleNew = title.replaceAll( "<br>", "\n");
-            Notes newNote = new Notes(titleNew, timeStamp);
-            if (titleNew.isEmpty()){
+//            String titleNew = title.replaceAll( "<br>", " \n ");
+            Notes newNote = new Notes(title, timeStamp);
+            if (title.isEmpty()){
                 startActivity(intent);
                 finish();
             } else {
-                newNote.setTitle(titleNew);
+                newNote.setTitle(title);
 
 //            newNote.setDescription(mEditor.getHtml());
                 newNote.setTimeStamp(timeStamp);
@@ -135,7 +135,7 @@ public class AddNotesActivity extends AppCompatActivity {
 //        builder.setTitle("Save Or Not");
         builder.setMessage("Do you want to save this? ");
 
-        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("dd MMM yyyy").format(new Date());
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("HH:mm:ss  dd MMM yyyy").format(new Date());
 
 
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
@@ -143,17 +143,17 @@ public class AddNotesActivity extends AppCompatActivity {
                 Intent intent = new Intent(AddNotesActivity.this, HomeActivity.class);
 //                intent.putExtra("title", etTitle.getText().toString());
 //                intent.putExtra("description", etDescription.getText().toString());
-                intent.putExtra("timeStamp", timeStamp);
+//                intent.putExtra("timeStamp", timeStamp);
 //        intent.putExtra("image", image);
 
                 MyDBHandler db = new MyDBHandler(AddNotesActivity.this);
                 Notes newNote = new Notes();
                 String title1 = mEditor.getHtml().replaceAll("&nbsp;","");
-                String titleee = title1.replaceAll("<br>","\n");
-                if (titleee.isEmpty()){
+//                String titleee = title1.replaceAll("<br>","\n");
+                if (title1.isEmpty()){
                     finish();
                 }else{
-                    newNote.setTitle(titleee);
+                    newNote.setTitle(title1);
 //            newNote.setDescription(mEditor.getHtml());
                     newNote.setTimeStamp(timeStamp);
 //            newNote.setImages(image);

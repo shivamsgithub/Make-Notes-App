@@ -41,7 +41,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.notesVH> {
         MyDBHandler db = new MyDBHandler(context);
 
         if (!((list.get(position).getTitle()).isEmpty())) {
-            holder.tvTitle.setText(list.get(position).getTitle());
+            holder.tvTitle.setText(list.get(position).getTitle().replaceAll( "<br>", "\n"));
         }
 
 //        if (!((list.get(position).getDescription()).isEmpty())){
@@ -61,12 +61,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.notesVH> {
             intentEdit.putExtra("timeStamp", list.get(position).getTimeStamp());
             context.startActivity(intentEdit);
         });
-
-
-//        ImagesAdapter imagesAdapter = new ImagesAdapter();
-//        holder.rvImagesList.setAdapter(imagesAdapter);
-
-//         imagesAdapter.addData(allNotes);
 
         holder.ivMore.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -99,7 +93,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.notesVH> {
 //add what a subject you want
                 shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,"add what a subject you want");
 //message
-                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "" + list.get(position).getTitle() + "\n" +  list.get(position).getDescription() + "");
+                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, "" + list.get(position).getTitle().replaceAll( "<br>", "\n"));
 //start sharing via
                 context.startActivity(Intent.createChooser(shareIntent,"Share via"));
             });
